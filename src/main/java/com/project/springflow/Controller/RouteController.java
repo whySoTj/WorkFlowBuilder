@@ -1,4 +1,5 @@
 package com.project.springflow.Controller;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -26,9 +27,11 @@ public class RouteController {
         List<Route> routes = routeService.getAllRoutes();
         return new ResponseEntity<>(routes, HttpStatus.OK);
     }
+
     @GetMapping("/route/destination")
-    public ResponseEntity<List<Location>> getDestinationByOrigin(@RequestParam("locationId") int locationId, @RequestParam("city") String city) {
-        Location newLocation= new Location(locationId,city);
+    public ResponseEntity<List<Location>> getDestinationByOrigin(@RequestParam("locationId") int locationId,
+            @RequestParam("city") String city) {
+        Location newLocation = new Location(locationId, city);
         List<Location> routes = routeService.getDestinationByOrigin(newLocation);
         return new ResponseEntity<>(routes, HttpStatus.OK);
     }
@@ -37,7 +40,7 @@ public class RouteController {
     public ResponseEntity<Route> getRouteById(@PathVariable("id") int id) {
         Optional<Route> route = routeService.getRouteById(id);
         return route.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                    .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/getroute")
@@ -52,11 +55,10 @@ public class RouteController {
         }
     }
 
-
     @PostMapping("/route")
     public ResponseEntity<Route> addRoute(@RequestBody Route route) {
         Route addedRoute = routeService.addRoute(route);
         return new ResponseEntity<>(addedRoute, HttpStatus.CREATED);
-    }  
+    }
 
 }

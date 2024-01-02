@@ -5,6 +5,7 @@ import lombok.Getter;
 @Getter
 public enum WorkOrderAssignableCarrierEnum {
     UNASSIGNED("UNASSIGNED"),
+    ACCEPTED("ACCEPTED"),
     ASSIGNED("ASSIGNED"),
     COMPLETED("COMPLETED"),
     REJECTED("REJECTED");

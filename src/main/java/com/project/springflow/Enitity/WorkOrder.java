@@ -30,11 +30,11 @@ public class WorkOrder {
     private int workOrderId;  
     private int cost;
     private int capacity;
+    private String carrierName;
 
 
     @Enumerated(EnumType.STRING)
     @Builder.Default
-    // private WorkOrderEnum workOrderStatus= WorkOrderEnum.PENDING;
     private WorkOrderEnum workOrderStatus = WorkOrderEnum.UNASSIGNED;
 
     @Enumerated(EnumType.STRING)
@@ -48,5 +48,7 @@ public class WorkOrder {
     @JoinColumn(name = "workFlow_id")
     private WorkFlow workFlow;
 //    @JoinColumn(name = "workFlow_id",referencedColumnName = "workFlowId")
+
+   
     
 }

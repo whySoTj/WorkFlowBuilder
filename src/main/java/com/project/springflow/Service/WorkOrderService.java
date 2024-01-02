@@ -6,6 +6,8 @@ import com.project.springflow.Enitity.WorkOrder;
 import com.project.springflow.Repository.WorkOrderRepo;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service 
 public class WorkOrderService {
@@ -18,5 +20,14 @@ public class WorkOrderService {
     }
     public WorkOrder createWorkOrder(WorkOrder workOrder) {
         return workOrderRepo.save(workOrder);
+    }
+
+    public boolean deleteWorkOrderById(int workOrderId) {
+        Optional<WorkOrder> optionalWorkOrder = workOrderRepo.findById(workOrderId);
+        if (optionalWorkOrder.isPresent()) {
+            workOrderRepo.deleteById(workOrderId);
+            return true; // Deletion successful
+        }
+        return false; // WorkOrder with given ID not found
     }
 }

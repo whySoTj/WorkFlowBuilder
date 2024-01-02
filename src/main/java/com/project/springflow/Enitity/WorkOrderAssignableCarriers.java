@@ -1,5 +1,7 @@
 package com.project.springflow.Enitity;
 
+import com.project.springflow.Enum.ItemTypeEnum;
+import com.project.springflow.Enum.LoadTypeEnum;
 import com.project.springflow.Enum.WorkOrderAssignableCarrierEnum;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -29,7 +31,16 @@ public class WorkOrderAssignableCarriers {
     private int workOrderId;
     private int carrierId;
     private int cost;
+    private int routeId;
+    private int capacity;
     private String carrierName;
+
+    
+    @Enumerated(EnumType.STRING)
+    private LoadTypeEnum loadTypeEnum;
+
+    @Enumerated(EnumType.STRING)
+    private ItemTypeEnum itemTypeEnum;
 
     @Enumerated(EnumType.STRING)
     @Builder.Default

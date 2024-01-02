@@ -3,6 +3,7 @@ package com.project.springflow.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.springflow.BusinessModel.BusinessLogic;
 import com.project.springflow.Enitity.RouteCarrier;
 import com.project.springflow.Service.RouteCarrierService;
 
@@ -22,9 +25,9 @@ import com.project.springflow.Service.RouteCarrierService;
 public class RouteCarrierController {
 
     @Autowired
-    private  RouteCarrierService routeCarrierService;
-
-    
+    private RouteCarrierService routeCarrierService;
+    @Autowired
+    private BusinessLogic businessLogic;
 
     @GetMapping
     public ResponseEntity<List<RouteCarrier>> getAllRouteCarriers() {
@@ -42,8 +45,6 @@ public class RouteCarrierController {
         }
     }
 
-    
-
     @PostMapping
     public ResponseEntity<RouteCarrier> createRouteCarrier(@RequestBody RouteCarrier routeCarrier) {
         RouteCarrier createdRouteCarrier = routeCarrierService.createRouteCarrier(routeCarrier);
@@ -51,7 +52,8 @@ public class RouteCarrierController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RouteCarrier> updateRouteCarrier(@PathVariable int id, @RequestBody RouteCarrier routeCarrier) {
+    public ResponseEntity<RouteCarrier> updateRouteCarrier(@PathVariable int id,
+            @RequestBody RouteCarrier routeCarrier) {
         RouteCarrier updatedRouteCarrier = routeCarrierService.updateRouteCarrier(id, routeCarrier);
         if (updatedRouteCarrier != null) {
             return new ResponseEntity<>(updatedRouteCarrier, HttpStatus.OK);
@@ -69,4 +71,10 @@ public class RouteCarrierController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/status/{routeCarrierId}")
+    public void updateStatus(@PathVariable("routeCarrierId") int routeCarrierId) {
+        businessLogic.rewampCarrierCapacityAndStatus(routeCarrierId);
+    }
+
 }

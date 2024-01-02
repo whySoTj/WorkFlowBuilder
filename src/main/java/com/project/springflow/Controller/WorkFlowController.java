@@ -16,8 +16,9 @@ import com.project.springflow.Service.WorkFlowService;
 @RestController
 public class WorkFlowController {
     @Autowired
-     private  WorkFlowService workFlowService;
-     @PostMapping("/workflow")
+    private WorkFlowService workFlowService;
+
+    @PostMapping("/workflow")
     public ResponseEntity<WorkFlow> createWorkFlow(@RequestBody WorkFlow workFlow) {
         WorkFlow savedWorkFlow = workFlowService.saveWorkFlow(workFlow);
         return new ResponseEntity<>(savedWorkFlow, HttpStatus.CREATED);

@@ -7,7 +7,8 @@ public enum WorkOrderEnum {
     UNASSIGNED("UNASSIGNED"),
     ASSIGNED("ASSIGNED"),
     ACCEPTED("ACCEPTED"),
-    REJECTED("REJECTED");
+    REJECTED("REJECTED"),
+    CARRIERNOTFOUND("CARRIERNOTFOUND");
 
     private final String workOrderStatus;
 

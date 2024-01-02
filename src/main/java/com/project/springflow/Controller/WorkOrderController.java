@@ -21,7 +21,6 @@ public class WorkOrderController {
     @Autowired
     private BusinessLogic businessLogic;
 
-
     @GetMapping
     public ResponseEntity<List<WorkOrder>> getAllWorkOrders() {
         List<WorkOrder> workOrders = workOrderService.getAllWorkOrders();
@@ -32,9 +31,19 @@ public class WorkOrderController {
     public ResponseEntity<WorkOrder> createWorkOrder(@RequestBody WorkOrder workOrder) {
         WorkOrder createdWorkOrder = workOrderService.createWorkOrder(workOrder);
 
-        // List<RouteCarrier> sortedList = businessLogic.findWorkFlowConfig(createdWorkOrder.getWorkOrderId());
+        // List<RouteCarrier> sortedList =
+        // businessLogic.findWorkFlowConfig(createdWorkOrder.getWorkOrderId());
         // businessLogic.workOrderMapCarrier(sortedList,createdWorkOrder.getWorkOrderId());
         return new ResponseEntity<>(createdWorkOrder, HttpStatus.CREATED);
     }
-}
 
+    @DeleteMapping("/{workOrderId}")
+    public ResponseEntity<String> deleteWorkOrderById(@PathVariable int workOrderId) {
+        boolean deleted = workOrderService.deleteWorkOrderById(workOrderId);
+        if (deleted) {
+            return new ResponseEntity<>("Work Order deleted successfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Work Order not found", HttpStatus.NOT_FOUND);
+        }
+    }
+}
