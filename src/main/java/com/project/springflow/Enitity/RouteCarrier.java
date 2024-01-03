@@ -31,6 +31,7 @@ public class RouteCarrier {
     private int routeCarrierId;
     private int capacity;
     private int cost;
+    private int deliverIn;
 
 
     @ManyToOne

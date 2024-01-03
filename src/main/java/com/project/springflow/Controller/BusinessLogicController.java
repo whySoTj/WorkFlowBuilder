@@ -48,6 +48,8 @@ public class BusinessLogicController {
         .orElseThrow(()->new NoSuchElementException("No such work order found with"+workOrderId));
         if (workOrder.getWorkFlow().getConfiguration().getConfiguration()== ConfigEnum.AUTOMATIC) {
             businessLogic.automaticCarrierSelection(workOrderId);
+        }else if (workOrder.getWorkFlow().getConfiguration().getConfiguration()== ConfigEnum.FASTDELIVERY) {
+            businessLogic.automaticCarrierSelection(workOrderId);
         }
         return sortedList;
     }

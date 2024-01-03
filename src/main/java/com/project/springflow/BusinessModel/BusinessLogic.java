@@ -71,12 +71,19 @@ public class BusinessLogic {
         List<RouteCarrier> carrierList = listOfCarrier(workOrderId);
         if (workOrder.getWorkFlow().getConfiguration().getConfiguration() == ConfigEnum.AUTOMATIC) {
             return sortedCarrierByCost(carrierList);
+        }else if (workOrder.getWorkFlow().getConfiguration().getConfiguration() == ConfigEnum.FASTDELIVERY) {
+            return sortedCarrierByTime(carrierList);
         }
         return carrierList;
     }
 
     public List<RouteCarrier> sortedCarrierByCost(List<RouteCarrier> filteredList) {
         Collections.sort(filteredList, Comparator.comparingInt(f -> f.getCost()));
+        return filteredList;
+    }
+    public List<RouteCarrier> sortedCarrierByTime(List<RouteCarrier> filteredList) {
+        Collections.sort(filteredList, Comparator.comparingInt(f -> f.getDeliverIn()));
+        System.out.println(filteredList);
         return filteredList;
     }
 
@@ -211,40 +218,40 @@ public class BusinessLogic {
                 System.out.println("WorkOrder not found for ID: " + workOrderId);
             }
         }
-        updateRouteCarrierCapacityAndStatus(firstCarrier.getRouteId(), firstCarrier.getCarrierId(),
-                firstCarrier.getCapacity());
+        // updateRouteCarrierCapacityAndStatus(firstCarrier.getRouteId(), firstCarrier.getCarrierId(),
+                // firstCarrier.getCapacity());
     }
 
-    public void updateRouteCarrierCapacityAndStatus(int routeId, int carrierId, int capacity) {
-        List<RouteCarrier> updatecCarrierCapacity = routeCarrierRepo.findAll();
-        for (RouteCarrier routeCarrier : updatecCarrierCapacity) {
-            if (routeCarrier.getCarrier().getCarrierId() == carrierId &&
-                    routeCarrier.getRoute().getRouteId() == routeId) {
-                if (routeCarrier.getLoadType() == LoadTypeEnum.FCL) {
-                    RouteCarrier setCarrierStatus = routeCarrier;
-                    setCarrierStatus.setCarrierStatus(CarrierEnum.NOTAVAILABLE);
-                    routeCarrierRepo.save(setCarrierStatus);
-                } else {
-                    RouteCarrier setCarrierCapacity = routeCarrier;
-                    setCarrierCapacity.setCapacity(setCarrierCapacity.getCapacity() - capacity);
-                }
-                break;
-            }
+    // public void updateRouteCarrierCapacityAndStatus(int routeId, int carrierId, int capacity) {
+    //     List<RouteCarrier> updatecCarrierCapacity = routeCarrierRepo.findAll();
+    //     for (RouteCarrier routeCarrier : updatecCarrierCapacity) {
+    //         if (routeCarrier.getCarrier().getCarrierId() == carrierId &&
+    //                 routeCarrier.getRoute().getRouteId() == routeId) {
+    //             if (routeCarrier.getLoadType() == LoadTypeEnum.FCL) {
+    //                 RouteCarrier setCarrierStatus = routeCarrier;
+    //                 setCarrierStatus.setCarrierStatus(CarrierEnum.NOTAVAILABLE);
+    //                 routeCarrierRepo.save(setCarrierStatus);
+    //             } else {
+    //                 RouteCarrier setCarrierCapacity = routeCarrier;
+    //                 setCarrierCapacity.setCapacity(setCarrierCapacity.getCapacity() - capacity);
+    //             }
+    //             break;
+    //         }
 
-        }
-    }
+    //     }
+    // }
 
-    public void rewampCarrierCapacityAndStatus(int routeCarrierId) {
-        RouteCarrier routeCarrier = routeCarrierRepo.findById(routeCarrierId)
-                .orElseThrow(() -> new NoSuchElementException("No RouteCarrier Found by such Id" + routeCarrierId));
+    // public void rewampCarrierCapacityAndStatus(int routeCarrierId) {
+    //     RouteCarrier routeCarrier = routeCarrierRepo.findById(routeCarrierId)
+    //             .orElseThrow(() -> new NoSuchElementException("No RouteCarrier Found by such Id" + routeCarrierId));
 
-        if (routeCarrier.getLoadType() == LoadTypeEnum.FCL) {
-            routeCarrier.setCarrierStatus(CarrierEnum.AVAILABLE);
-        } else {
-            routeCarrier.setCapacity(90);
-        }
-        routeCarrierRepo.save(routeCarrier);
-    }
+    //     if (routeCarrier.getLoadType() == LoadTypeEnum.FCL) {
+    //         routeCarrier.setCarrierStatus(CarrierEnum.AVAILABLE);
+    //     } else {
+    //         routeCarrier.setCapacity(90);
+    //     }
+    //     routeCarrierRepo.save(routeCarrier);
+    // }
 
     public void selectCarrierManu(int workOrderId, int carrierId){
         List <WorkOrderAssignableCarriers> findAllAssignableCarriers =  workOrderAssignableCarrierRepo.findAll();       

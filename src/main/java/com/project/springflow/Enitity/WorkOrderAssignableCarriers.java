@@ -37,7 +37,8 @@ public class WorkOrderAssignableCarriers {
 
     
     @Enumerated(EnumType.STRING)
-    private LoadTypeEnum loadTypeEnum;
+    @Builder.Default
+    private LoadTypeEnum loadTypeEnum = LoadTypeEnum.FCL;
 
     @Enumerated(EnumType.STRING)
     private ItemTypeEnum itemTypeEnum;

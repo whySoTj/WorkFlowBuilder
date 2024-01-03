@@ -11,6 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,15 +21,21 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 public class WorkFlow {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int workFlowId;
-    private int budget;
+    // private int budget;
     private String workFlowName;
+    
     @Enumerated(EnumType.STRING)
-    private LoadTypeEnum loadType;
+    @Builder.Default
+    private LoadTypeEnum loadType = LoadTypeEnum.FCL;
+
    @ManyToOne
    @JoinColumn(name = "configure_id",referencedColumnName = "configId")
    private Configure Configuration;
+
+   
 }
