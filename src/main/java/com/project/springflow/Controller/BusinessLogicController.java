@@ -14,6 +14,7 @@ import com.project.springflow.Enitity.RouteCarrier;
 import com.project.springflow.Enitity.WorkOrder;
 import com.project.springflow.Enitity.WorkOrderAssignableCarriers;
 import com.project.springflow.Enum.ConfigEnum;
+import com.project.springflow.Enum.WorkOrderAssignableCarrierEnum;
 import com.project.springflow.Repository.WorkOrderAssignableCarrierRepo;
 import com.project.springflow.Repository.WorkOrderRepo;
 
@@ -69,6 +70,15 @@ public class BusinessLogicController {
         // Use the received workOrderId and carrierId in your logic
         businessLogic.selectCarrierManu(workOrderId, carrierId);
     }
+
+    @GetMapping("/assignedCarriers")
+    public List<WorkOrderAssignableCarriers> getAssignedCarrier(){
+        List<WorkOrderAssignableCarriers> assignedList = workOrderAssignableCarrierRepo.assignedCarrierList(WorkOrderAssignableCarrierEnum.ASSIGNED);
+        return assignedList;
+        // System.out.println(assignedList);
+
+    }
+    
 
 
     
