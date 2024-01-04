@@ -78,6 +78,13 @@ public class BusinessLogicController {
         // System.out.println(assignedList);
 
     }
+
+    @GetMapping("/selectcarrier/{workOrderId}")
+    public List<RouteCarrier> selectCarrier(@PathVariable("workOrderId") int workOrderId){
+        List<RouteCarrier> sortedList = businessLogic.findWorkFlowConfig(workOrderId);
+        businessLogic.workOrderMapCarrier(sortedList, workOrderId);
+        return sortedList;
+    }
     
 
 

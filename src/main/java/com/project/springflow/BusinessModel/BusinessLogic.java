@@ -45,6 +45,8 @@ public class BusinessLogic {
             if (workOrder.getRoute().getRouteId() == routeCarrier.getRoute().getRouteId()
                     && routeCarrier.getCarrierStatus() == CarrierEnum.AVAILABLE
                     && routeCarrier.getItemType() == workOrder.getItemType()
+                    && routeCarrier.getCost()<=workOrder.getCost()
+                    && routeCarrier.getDeliverIn()<=workOrder.getDeliverIn()
                     && routeCarrier.getLoadType() == workOrder.getWorkFlow().getLoadType()
                     && ((routeCarrier.getLoadType() == LoadTypeEnum.FCL)
                             || (routeCarrier.getLoadType() == LoadTypeEnum.LCL
