@@ -31,6 +31,7 @@ public class WorkOrder {
     private int cost;
     private int capacity;
     private String carrierName;
+    private int deliverIn;
     
 
 

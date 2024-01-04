@@ -33,6 +33,7 @@ public class WorkOrderAssignableCarriers {
     private int cost;
     private int routeId;
     private int capacity;
+    private int deliverIn;
     private String carrierName;
 
     

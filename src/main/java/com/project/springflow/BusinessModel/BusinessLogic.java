@@ -103,6 +103,7 @@ public class BusinessLogic {
                     .loadTypeEnum(routeCarrier.getLoadType())
                     .routeId(routeCarrier.getRoute().getRouteId())
                     .capacity(workOrder.getCapacity())
+                    .deliverIn(routeCarrier.getDeliverIn())
                     .build());
         }
     }
@@ -132,6 +133,7 @@ public class BusinessLogic {
                 workOrder.setWorkOrderStatus(WorkOrderEnum.ASSIGNED);
                 workOrder.setCarrierName(firstCarrier.getCarrierName());
                 workOrder.setCost(firstCarrier.getCost());
+                workOrder.setDeliverIn(firstCarrier.getDeliverIn());
                 System.out.println("Setting WorkOrder Status to: " + workOrder.getWorkOrderStatus());
 
                 // Save the WorkOrder entity to persist the changes
@@ -150,6 +152,7 @@ public class BusinessLogic {
             workOrder.setWorkOrderStatus(WorkOrderEnum.REJECTED);
             workOrder.setCarrierName("No Carrier Found");
             workOrder.setCost(0);
+            workOrder.setDeliverIn(0);
             workOrderRepo.save(workOrder);
 
         }
@@ -226,6 +229,7 @@ public class BusinessLogic {
                 workOrder.setWorkOrderStatus(WorkOrderEnum.ACCEPTED);
                 workOrder.setCarrierName(firstCarrier.getCarrierName());
                 workOrder.setCost(firstCarrier.getCost());
+                workOrder.setDeliverIn(firstCarrier.getDeliverIn());
                 System.out.println("Setting WorkOrder Status to: " + workOrder.getWorkOrderStatus());
 
                 // Save the WorkOrder entity to persist the changes
@@ -297,6 +301,7 @@ public class BusinessLogic {
         workOrder.setWorkOrderStatus(WorkOrderEnum.ASSIGNED);
         workOrder.setCarrierName(assignableCarrier.getCarrierName());
         workOrder.setCost(assignableCarrier.getCost());
+        workOrder.setDeliverIn(assignableCarrier.getDeliverIn());
         workOrderRepo.save(workOrder);
 
     }

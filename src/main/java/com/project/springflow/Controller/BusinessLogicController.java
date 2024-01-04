@@ -73,7 +73,7 @@ public class BusinessLogicController {
 
     @GetMapping("/assignedCarriers")
     public List<WorkOrderAssignableCarriers> getAssignedCarrier(){
-        List<WorkOrderAssignableCarriers> assignedList = workOrderAssignableCarrierRepo.assignedCarrierList(WorkOrderAssignableCarrierEnum.ASSIGNED);
+        List<WorkOrderAssignableCarriers> assignedList = workOrderAssignableCarrierRepo.assignedCarrierList(WorkOrderAssignableCarrierEnum.ASSIGNED,WorkOrderAssignableCarrierEnum.ACCEPTED);
         return assignedList;
         // System.out.println(assignedList);
 

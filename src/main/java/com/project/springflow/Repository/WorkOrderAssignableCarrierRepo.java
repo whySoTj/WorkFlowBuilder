@@ -11,8 +11,9 @@ import com.project.springflow.Enum.WorkOrderAssignableCarrierEnum;
 
 public interface WorkOrderAssignableCarrierRepo extends JpaRepository<WorkOrderAssignableCarriers,Integer>{
 
-    @Query("SELECT c from WorkOrderAssignableCarriers c WHERE c.workOrderAssignableCarrierEnum = :status")
-    public List<WorkOrderAssignableCarriers> assignedCarrierList(@Param("status") WorkOrderAssignableCarrierEnum status);
+    @Query("SELECT c FROM WorkOrderAssignableCarriers c WHERE c.workOrderAssignableCarrierEnum = :status1 OR c.workOrderAssignableCarrierEnum = :status2")
+public List<WorkOrderAssignableCarriers> assignedCarrierList(@Param("status1") WorkOrderAssignableCarrierEnum status1, @Param("status2") WorkOrderAssignableCarrierEnum status2);
+
 
 }
 
