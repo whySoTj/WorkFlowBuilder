@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.springflow.Enitity.RouteCarrier;
+import com.project.springflow.Enum.ItemTypeEnum;
 import com.project.springflow.Repository.RouteCarrierRepo;
 
 @Service
@@ -49,4 +50,8 @@ public class RouteCarrierService {
         return false; // Return false if the entity with the given id is not found
     }
     
+    public List<RouteCarrier> getCarrierByitemTypeAndRouteId(ItemTypeEnum itemTypeEnum, int routeId){
+        List<RouteCarrier> manualSelectionCarrierList= routeCarrierRepo.findCarrierByItemTypeAndRouteId(itemTypeEnum, routeId);
+        return manualSelectionCarrierList;
+    }
 }

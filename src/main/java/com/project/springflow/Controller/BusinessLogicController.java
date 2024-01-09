@@ -71,6 +71,7 @@ public class BusinessLogicController {
         businessLogic.selectCarrierManu(workOrderId, carrierId);
     }
 
+    // this one is for getting carrier who have accepted and assigned
     @GetMapping("/assignedCarriers")
     public List<WorkOrderAssignableCarriers> getAssignedCarrier(){
         List<WorkOrderAssignableCarriers> assignedList = workOrderAssignableCarrierRepo.assignedCarrierList(WorkOrderAssignableCarrierEnum.ASSIGNED,WorkOrderAssignableCarrierEnum.ACCEPTED);

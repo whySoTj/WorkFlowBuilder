@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.project.springflow.BusinessModel.BusinessLogic;
 import com.project.springflow.Enitity.RouteCarrier;
+import com.project.springflow.Enum.ItemTypeEnum;
 import com.project.springflow.Service.RouteCarrierService;
 
 @RestController
@@ -74,5 +75,9 @@ public class RouteCarrierController {
     // public void updateStatus(@PathVariable("routeCarrierId") int routeCarrierId) {
     //     businessLogic.rewampCarrierCapacityAndStatus(routeCarrierId);
     // }
+    @GetMapping("/{itemType}/{routeId}")
+    public List<RouteCarrier> manualSelectionCarrierList(@PathVariable("itemType") ItemTypeEnum itemType, @PathVariable("routeId") int routeId){
+        return routeCarrierService.getCarrierByitemTypeAndRouteId(itemType, routeId);
+    }
 
 }
